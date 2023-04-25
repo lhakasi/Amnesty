@@ -67,20 +67,21 @@ namespace Amnesty
             Console.WriteLine();
         }        
 
-        public void Amnesty()
+        public void Amnesty(string crimeUnderAmnesty)
         {
-            _criminals = _criminals.Where(criminal => criminal.Crime != "антиправительственное").ToList();
+            _criminals = _criminals.Where(criminal => criminal.Crime != crimeUnderAmnesty).ToList();
         }
     }
 
     class Terminal
     {
-        private Jail _jail = new Jail();
+        private Jail _jail = new Jail();        
 
         public void Work()
         {
+            string crimeUnderAmnesty = "антиправительственное";
             string header = "  В НАШЕЙ ВЕЛИКОЙ СТРАНЕ АРСТОЦКА ПРОИЗОШЛА АМНИСТИЯ!";
-            string header1 = "  ВСЕ ЗАКЛЮЧЕННЫЕ ЗА АНТИПРАВИТЕЛЬСТВЕННЫЕ ПРЕСТУПЛЕНИЯ ОСВОБОЖДАЮТСЯ!    ";
+            string header1 = $"  ВСЕ ЗАКЛЮЧЕННЫЕ ЗА {crimeUnderAmnesty} ПРЕСТУПЛЕНИЕ ОСВОБОЖДАЮТСЯ!    ".ToUpper();
             string header2 = "  СПИСОК ЗАКЛЮЧЕННЫХ:";
 
             Console.WriteLine(header);
@@ -93,7 +94,7 @@ namespace Amnesty
 
             ShowHeaders(header1, header2);
 
-            _jail.Amnesty();
+            _jail.Amnesty(crimeUnderAmnesty);
             _jail.ShowList();
 
             Console.ReadKey();
